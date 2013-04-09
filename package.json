@@ -1,0 +1,11 @@
+{
+	"name": 		"Op",
+	"description": 	"Op",
+	"version":		"1.0.0",
+	"dependencies": {
+		"mysql":		"latest",
+		"mongodb":		"latest",
+		"underscore":	"latest"
+	}
+}
+
