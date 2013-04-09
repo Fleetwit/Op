@@ -44,18 +44,14 @@ main.prototype.__convertRaceData = function() {
 					continue;
 				}
 				var buffer = [];
-				for (j in docs[i].race) {
-					var subbuffer = [];
-					for (k in docs[i].race[j]) {
-						subbuffer.push(_.extend({
-							level: k
-						}, docs[i].race[j][k]));
+				for (j=0;j<docs[i].race.length;j++) {
+					for (k=0;k<docs[i].race[j].levels.length;k++) {
+						buffer.push(_.extend({
+							race:	docs[i].race[j].race
+						}, docs[i].race[j].levels[k]));
 					}
-					buffer.push({
-						race:	j,
-						levels:	subbuffer
-					});
 				}
+				console.dir(buffer);
 				collection.update({
 					_id:	docs[i]._id
 				}, {
@@ -67,6 +63,41 @@ main.prototype.__convertRaceData = function() {
 		});
 	});
 }
+/*
+main.prototype.__convertRaceData = function() {
+	this.mongo.open("datastore", function(collection) {
+		collection.find().toArray(function(err, docs) {
+			
+			for (i=0;i<docs.length;i++) {
+				console.dir(docs[i]);
+				if (docs[i].race == undefined) {
+					continue;
+				}
+				var buffer = [];
+				for (j in docs[i].race) {
+					var subbuffer = [];
+					for (k in docs[i].race[j]) {
+						
+						buffer.push(_.extend({
+							race:	j,
+							level:	k,
+							
+						}, docs[i].race[j][k]));
+					}
+					
+				}
+				
+				collection.update({
+					_id:	docs[i]._id
+				}, {
+					race: buffer
+				}, function() {
+					
+				});
+			}
+		});
+	});
+}*/
 
 new main();
 
